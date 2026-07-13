@@ -9,7 +9,8 @@ internal class Program
 {
     private static void Main()
     {
-        ProgressReporter progressReporter = DrawProgressBar;
+        ProgressReporter progressReporter = ShowProgressBar;
+        progressReporter += ReportHalfwayWarning;
         
         Console.CursorVisible = false;
         Console.WriteLine("=== Process Simulator ===");
@@ -43,7 +44,7 @@ internal class Program
         }
     }
 
-    private static void DrawProgressBar(string stepName, int percent)
+    private static void ShowProgressBar(string stepName, int percent)
     {
         const int width = 30;
         const char filledChar = '█';
@@ -59,6 +60,14 @@ internal class Program
         if (percent == 100)
         {
             Console.WriteLine();
+        }
+    }
+
+    private static void ReportHalfwayWarning(string stepName, int percent)
+    {
+        if (percent == 50)
+        {
+            Console.WriteLine($"  Warning: {stepName} is only halfway done.");
         }
     }
 }
