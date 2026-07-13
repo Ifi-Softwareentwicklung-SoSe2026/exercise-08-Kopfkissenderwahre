@@ -15,7 +15,7 @@ tags: [Sommersemester2026, Softwareentwicklung, Übung08]
 
 -->
 
-[![LiaScript Course](https://raw.githubusercontent.com/LiaScript/LiaScript/master/badges/course.svg)](https://liascript.github.io/course/?https://raw.githubusercontent.com/Ifi-Softwareentwicklung-SoSe2026/exercise_08/refs/heads/main/README.md)
+[![LiaScript Course](https://raw.githubusercontent.com/LiaScript/LiaScript/master/badges/course.svg)](https://liascript.github.io/course/?https://raw.githubusercontent.com/Ifi-Softwareentwicklung-SoSe2026/exercise_08-Kopfkissenderwahre/refs/heads/main/README.md)
 
 # Aufgabe 08
 
@@ -75,27 +75,27 @@ Beantworte vor den Codeänderungen kurz:
 1. Welche Teile des Codes gehören zur Prozesslogik?
 
 ```text
-Hier Antwort einfügen
+alle
 ```
 
 2. Welche Teile gehören zur Konsolenvisualisierung?
 
 ```text
-Hier Antwort einfügen
+alle mit Console.Write oder Console.WriteLine
 ```
 
 
 3. Welche Teile wären in einer GUI- oder Webanwendung schwer wiederverwendbar?
 
 ```text
-Hier Antwort einfügen
+keine
 ```
 
 
 4. Was müsstest du ändern, wenn du Logging hinzufügen willst?
 
 ```text
-Hier Antwort einfügen
+logging implementieren
 ```
 
 
