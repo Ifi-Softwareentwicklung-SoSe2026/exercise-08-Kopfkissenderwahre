@@ -75,27 +75,27 @@ Beantworte vor den Codeänderungen kurz:
 1. Welche Teile des Codes gehören zur Prozesslogik?
 
 ```text
-alle
+methode main
 ```
 
 2. Welche Teile gehören zur Konsolenvisualisierung?
 
 ```text
-alle mit Console.Write oder Console.WriteLine
+methode DrawProgressBar
 ```
 
 
 3. Welche Teile wären in einer GUI- oder Webanwendung schwer wiederverwendbar?
 
 ```text
-keine
+wird aktuell nur in Konsole ausgegeben
 ```
 
 
 4. Was müsstest du ändern, wenn du Logging hinzufügen willst?
 
 ```text
-logging implementieren
+wird aktuell nur in die Konsole geschrieben
 ```
 
 
