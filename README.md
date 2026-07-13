@@ -75,27 +75,27 @@ Beantworte vor den Codeänderungen kurz:
 1. Welche Teile des Codes gehören zur Prozesslogik?
 
 ```text
-methode main
+Zur Prozesslogik gehören alle Bestandteile, die den eigentlichen Ablauf der Anwendung steuern. Dazu zählen die Liste der Prozessschritte, das Durchlaufen dieser Schritte, die Fortschrittsberechnung von 0 bis 100 Prozent, die Bedingung für die Warnmeldung bei 50 Prozent sowie die simulierte Bearbeitungszeit. Diese Teile beschreiben, was der Prozess macht.
 ```
 
 2. Welche Teile gehören zur Konsolenvisualisierung?
 
 ```text
-methode DrawProgressBar
+Zur Konsolenvisualisierung gehören alle Anweisungen, die Informationen auf dem Bildschirm darstellen. Dazu zählen die Überschriften, Statusmeldungen, Warnungen, Abschlussmeldungen sowie die Darstellung des Fortschrittsbalkens mit Sonderzeichen. Auch das Ein- und Ausblenden des Cursors gehört zur Darstellung. Diese Teile beschreiben, wie die Informationen dem Benutzer angezeigt werden.
 ```
 
 
 3. Welche Teile wären in einer GUI- oder Webanwendung schwer wiederverwendbar?
 
 ```text
-wird aktuell nur in Konsole ausgegeben
+Schwer wiederverwendbar sind vor allem die konsolenspezifischen Ausgaben. Eine grafische Benutzeroberfläche oder eine Webanwendung verwendet andere Methoden zur Darstellung von Informationen und Fortschritten. Die Logik zur Abarbeitung der Prozessschritte könnte dagegen weitgehend unverändert übernommen werden. Die direkte Konsolenausgabe müsste jedoch durch GUI-Elemente oder Web-Komponenten ersetzt werden.
 ```
 
 
 4. Was müsstest du ändern, wenn du Logging hinzufügen willst?
 
 ```text
-wird aktuell nur in die Konsole geschrieben
+Für Logging sollte die Verarbeitung von der Ausgabe getrennt werden. Statusmeldungen, Warnungen und Abschlussinformationen sollten nicht ausschließlich auf der Konsole ausgegeben werden, sondern zusätzlich an eine Logging-Komponente weitergegeben werden. Dadurch könnten die Informationen beispielsweise in Dateien, Datenbanken oder Monitoring-Systemen gespeichert werden. Die Anwendung wäre dadurch flexibler und die Prozesslogik besser wiederverwendbar.
 ```
 
 
