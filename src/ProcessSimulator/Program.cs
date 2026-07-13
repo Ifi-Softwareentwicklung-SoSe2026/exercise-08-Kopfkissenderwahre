@@ -3,14 +3,26 @@ using System.Threading;
 
 namespace ProcessSimulator;
 
+public delegate void ProgressReporter(string stepName, int percent);
+
 internal class Program
 {
     private static void Main()
     {
+        ProgressReporter progressReporter = DrawProgressBar;
+        
         Console.CursorVisible = false;
         Console.WriteLine("=== Process Simulator ===");
         Console.WriteLine();
 
+        RunSimulation(progressReporter);
+
+        Console.WriteLine("All process steps completed.");
+        Console.CursorVisible = true;
+    }
+
+    private static void RunSimulation(ProgressReporter progressReporter)
+    {
         string[] steps =
         {
             "Downloading data",
@@ -23,26 +35,12 @@ internal class Program
 
         foreach (string step in steps)
         {
-            Console.WriteLine($"Starting: {step}");
-
             for (int percent = 0; percent <= 100; percent += 5)
             {
-                DrawProgressBar(step, percent);
-
-                if (percent == 50)
-                {
-                    Console.WriteLine($"  Warning: {step} is only halfway done.");
-                }
-
+                progressReporter(step, percent);
                 Thread.Sleep(80);
             }
-
-            Console.WriteLine($"Completed: {step}");
-            Console.WriteLine();
         }
-
-        Console.WriteLine("All process steps completed.");
-        Console.CursorVisible = true;
     }
 
     private static void DrawProgressBar(string stepName, int percent)
