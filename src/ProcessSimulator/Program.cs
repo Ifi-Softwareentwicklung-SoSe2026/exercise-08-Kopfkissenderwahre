@@ -47,10 +47,7 @@ internal class Program
         }
     }
 }
-public class ProgressEventArgs : EventArgs {
-    public string StepName { get; set; }
-    public int Percent { get; set; }
-}
+
 public class ProcessRunner
 {
     public void RunProcess()
@@ -69,19 +66,19 @@ public class ProcessRunner
         {
             for (int percent = 0; percent <= 100; percent += 5)
             {
-                ProgressChanged?.Invoke(this, new ProcessStepEventArgs { StepName = step, Percent = percent });
+                ProgressChanged?.Invoke(this, new ProcessChangedEventArgs { StepName = step, Percent = percent });
                 Thread.Sleep(80);
             }
             StepCompleted?.Invoke(this, new ProcessStepEventArgs { StepName = step, Percent = 100 });
         }
         ProcessCompleted?.Invoke(this, EventArgs.Empty);
     }
-    public event EventHandler<ProgressChangedEventArgs>? ProgressChanged;
+    public event EventHandler<ProcessChangedEventArgs>? ProgressChanged;
     public event EventHandler<ProcessStepEventArgs>? ProgressStepChanged;
     public event EventHandler<ProcessStepEventArgs>? StepCompleted;
     public event EventHandler? ProcessCompleted;
 }
-public class ProgressChangedEventArgs : EventArgs {
+public class ProcessChangedEventArgs : EventArgs {
     public string StepName { get; set; }
     public int Percent { get; set; }
 }
