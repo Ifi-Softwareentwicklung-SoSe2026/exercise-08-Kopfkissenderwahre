@@ -69,14 +69,23 @@ public class ProcessRunner
         {
             for (int percent = 0; percent <= 100; percent += 5)
             {
-                ProgressChanged?.Invoke(this, new ProgressEventArgs { StepName = step, Percent = percent });                Thread.Sleep(80);
+                ProgressChanged?.Invoke(this, new ProcessStepEventArgs { StepName = step, Percent = percent });
+                Thread.Sleep(80);
             }
-            OnStepCompleted(step);
+            StepCompleted?.Invoke(this, new ProcessStepEventArgs { StepName = step, Percent = 100 });
         }
-        OnProcessCompleted();
+        ProcessCompleted?.Invoke(this, EventArgs.Empty);
     }
-    public event EventHandler<ProgressChangedEventArgs> ProgressChanged;
-    public event EventHandler<ProgressStepEventArgs> ProgressStepChanged;
+    public event EventHandler<ProgressChangedEventArgs>? ProgressChanged;
+    public event EventHandler<ProcessStepEventArgs>? ProgressStepChanged;
     public event EventHandler<ProcessStepEventArgs>? StepCompleted;
     public event EventHandler? ProcessCompleted;
+}
+public class ProgressChangedEventArgs : EventArgs {
+    public string StepName { get; set; }
+    public int Percent { get; set; }
+}
+public class ProcessStepEventArgs : EventArgs {
+    public string StepName { get; set; }
+    public int Percent { get; set; }
 }
