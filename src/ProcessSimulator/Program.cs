@@ -15,8 +15,8 @@ internal class Program
         Console.WriteLine("=== Process Simulator ===");
         Console.WriteLine();
 
+        runner.RunProcess();
 
-        Console.WriteLine("All process steps completed.");
         Console.CursorVisible = true;
     }
 
