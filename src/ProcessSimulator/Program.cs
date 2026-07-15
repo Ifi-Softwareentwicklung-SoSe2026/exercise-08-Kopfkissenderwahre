@@ -3,45 +3,21 @@ using System.Threading;
 
 namespace ProcessSimulator;
 
-public delegate void ProgressReporter(string stepName, int percent);
-
 internal class Program
 {
     private static void Main()
     {
-        ProgressReporter progressReporter = ShowProgressBar;
-        progressReporter += ReportHalfwayWarning;
-        
+        ProcessRunner runner = new ProcessRunner();
+        runner.ProgressChanged += (sender, e) => ShowProgressBar(e.StepName, e.Percent);
+        runner.StepCompleted += (sender, e) => ReportHalfwayWarning(e.StepName, e.Percent);
+        runner.ProcessCompleted += (sender, e) => Console.WriteLine("All process steps completed.");
         Console.CursorVisible = false;
         Console.WriteLine("=== Process Simulator ===");
         Console.WriteLine();
 
-        RunSimulation(progressReporter);
+        runner.RunProcess();
 
-        Console.WriteLine("All process steps completed.");
         Console.CursorVisible = true;
-    }
-
-    private static void RunSimulation(ProgressReporter progressReporter)
-    {
-        string[] steps =
-        {
-            "Downloading data",
-            "Validating input",
-            "Processing records",
-            "Generating report",
-            "Publishing results",
-            "Cleaning up"
-        };
-
-        foreach (string step in steps)
-        {
-            for (int percent = 0; percent <= 100; percent += 5)
-            {
-                progressReporter(step, percent);
-                Thread.Sleep(80);
-            }
-        }
     }
 
     private static void ShowProgressBar(string stepName, int percent)
@@ -70,4 +46,43 @@ internal class Program
             Console.WriteLine($"  Warning: {stepName} is only halfway done.");
         }
     }
+}
+
+public class ProcessRunner
+{
+    public void RunProcess()
+    {
+        string[] steps =
+        {
+            "Downloading data",
+            "Validating input",
+            "Processing records",
+            "Generating report",
+            "Publishing results",
+            "Cleaning up"
+        };
+
+        foreach (string step in steps)
+        {
+            for (int percent = 0; percent <= 100; percent += 5)
+            {
+                ProgressChanged?.Invoke(this, new ProcessChangedEventArgs { StepName = step, Percent = percent });
+                Thread.Sleep(80);
+            }
+            StepCompleted?.Invoke(this, new ProcessStepEventArgs { StepName = step, Percent = 100 });
+        }
+        ProcessCompleted?.Invoke(this, EventArgs.Empty);
+    }
+    public event EventHandler<ProcessChangedEventArgs>? ProgressChanged;
+    public event EventHandler<ProcessStepEventArgs>? ProgressStepChanged;
+    public event EventHandler<ProcessStepEventArgs>? StepCompleted;
+    public event EventHandler? ProcessCompleted;
+}
+public class ProcessChangedEventArgs : EventArgs {
+    public string StepName { get; set; }
+    public int Percent { get; set; }
+}
+public class ProcessStepEventArgs : EventArgs {
+    public string StepName { get; set; }
+    public int Percent { get; set; }
 }
